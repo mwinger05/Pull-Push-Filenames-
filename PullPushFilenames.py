@@ -1,32 +1,40 @@
 import os
 import shutil
 
-# Define the file path (replace 'numbers.txt' with the actual file path)
-file_path = "C:\\Users\\Inspiron 15 5579\\OneDrive\\Documents\\Walsh Lab\\TestList.txt"
+# Prompt for the text file path
+file_path = input("Enter the path to the text file (e.g., C:\\Users\\YourName\\Documents\\TestList.txt): ")
+
+# Prompt for the directory to copy from
+from_folder_path = input("Enter the path to the directory to copy from (e.g., C:\\Users\\YourName\\Documents\\FromFolder): ")
+
+# Prompt for the directory to copy to
+to_folder_path = input("Enter the path to the directory to copy to (e.g., C:\\Users\\YourName\\Documents\\ToFolder): ")
 
 # Initialize an empty list to store the numbers
 numbers_list = []
 
 # Open the file in read mode
-with open(file_path, 'r') as file:
-    # Read the file line by line
-    for line in file:
-        # Strip any whitespace characters like '\n' from the end of the line and convert to a number
-        numberString = line.strip()  # Use int(line.strip()) if you are dealing with integers
-        # Append the number to the list
-        numbers_list.append(numberString)
-
-#create copy from variable
-from_folder_path = "C:\\Users\\Inspiron 15 5579\\OneDrive\\Documents\\Walsh Lab"
-
-#create copy to variable
-to_folder_path = "C:\\Users\\Inspiron 15 5579\\OneDrive\\Documents\\Walsh Lab\\ToFolderPath"
+try:
+    with open(file_path, 'r') as file:
+        # Read the file line by line
+        for line in file:
+            # Strip any whitespace characters like '\n' from the end of the line and convert to a number
+            numberString = line.strip()
+            # Append the number to the list
+            numbers_list.append(numberString)
+except FileNotFoundError:
+    print(f"The file at {file_path} was not found.")
+    exit()
 
 # Ensure the target directory exists
 os.makedirs(to_folder_path, exist_ok=True)
 
 # List all files in the directory
-files_in_directory = os.listdir(from_folder_path)
+try:
+    files_in_directory = os.listdir(from_folder_path)
+except FileNotFoundError:
+    print(f"The directory at {from_folder_path} was not found.")
+    exit()
 
 # Iterate through the numbers list and check each item
 for number in numbers_list:
@@ -39,9 +47,13 @@ for number in numbers_list:
             # Full path of the destination file
             destination_file_path = os.path.join(to_folder_path, filename)
             # Copy the file
-            shutil.copy(source_file_path, destination_file_path)
-            print(f"Copied {filename} to {to_folder_path}")
-            found = True
-            break
+            try:
+                shutil.copy(source_file_path, destination_file_path)
+                print(f"Copied {filename} to {to_folder_path}")
+                found = True
+                break
+            except Exception as e:
+                print(f"Failed to copy {filename}. Error: {e}")
+                exit()
     if not found:
         print(f"{number} not found in any file name")
