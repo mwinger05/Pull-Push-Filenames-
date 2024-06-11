@@ -2,13 +2,13 @@ import os
 import shutil
 
 # Prompt for the text file path
-file_path = input("Enter the path to the text file (e.g., C:\\Users\\YourName\\Documents\\TestList.txt): ")
+file_path = input("Enter the path to the text file (e.g., C:\\Users\\YourName\\Documents\\TestList.txt): ").strip('\"')
 
 # Prompt for the directory to copy from
-from_folder_path = input("Enter the path to the directory to copy from (e.g., C:\\Users\\YourName\\Documents\\FromFolder): ")
+from_folder_path = input("Enter the path to the directory to copy from (e.g., C:\\Users\\YourName\\Documents\\FromFolder): ").strip('\"')
 
 # Prompt for the directory to copy to
-to_folder_path = input("Enter the path to the directory to copy to (e.g., C:\\Users\\YourName\\Documents\\ToFolder): ")
+to_folder_path = input("Enter the path to the directory to copy to (e.g., C:\\Users\\YourName\\Documents\\ToFolder): ").strip('\"')
 
 # Initialize an empty list to store the numbers
 numbers_list = []
