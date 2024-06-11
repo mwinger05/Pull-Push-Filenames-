@@ -40,7 +40,8 @@ except FileNotFoundError:
 for number in numbers_list:
     found = False
     for filename in files_in_directory:
-        if number in filename:
+        # Check if the file ends with .obj
+        if filename.endswith('.obj') and number in filename:
             print(f"{number} found in file name: {filename}")
             # Full path of the source file
             source_file_path = os.path.join(from_folder_path, filename)
