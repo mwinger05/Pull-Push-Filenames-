@@ -40,8 +40,8 @@ except FileNotFoundError:
 for number in numbers_list:
     found = False
     for filename in files_in_directory:
-        # Check if the file ends with .obj
-        if filename.endswith('.obj') and number in filename:
+        # Check if the filename contains the number
+        if number in filename:
             print(f"{number} found in file name: {filename}")
             # Full path of the source file
             source_file_path = os.path.join(from_folder_path, filename)
@@ -52,9 +52,8 @@ for number in numbers_list:
                 shutil.copy(source_file_path, destination_file_path)
                 print(f"Copied {filename} to {to_folder_path}")
                 found = True
-                break
             except Exception as e:
                 print(f"Failed to copy {filename}. Error: {e}")
-                exit()
     if not found:
         print(f"{number} not found in any file name")
+
